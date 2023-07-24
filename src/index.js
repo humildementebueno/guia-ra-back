@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 app.use('/books', require('./routers/books.routers'), )
 app.use('/comments', require('./routers/comments.routers'), )
-
+app.use('/users',require('/routers/users.routers'))
 
 // app.get('/books', (req, res) => {
 //     res.send('estoy aqui en books');
