@@ -4,6 +4,9 @@ const getUsers = async (req, res) => {
   try {
     msjP('Lista de libros');
     const user = await User.find({});
+    user=user.map(({password, ...usr})=>{
+      return usr
+    })
     respApi(res, 'succes', user);
   } catch {
     msjPError('Error en la consulta');
