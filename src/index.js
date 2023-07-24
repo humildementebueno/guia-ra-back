@@ -20,9 +20,10 @@ app.get('/', (req, res) => {
     console.log(`\x1b[35m ** estoy en home ** \x1b[0m`);
 })
 
-app.use('/books', require('./routers/books.routers'), )
+
 app.use('/comments', require('./routers/comments.routers'), )
-app.use('/users',require('/routers/users.routers'))
+app.use('/users',require('./routers/users.routers'))
+app.use('/unidAdmis',require('./routers/unidAdmis.routers'))
 
 // app.get('/books', (req, res) => {
 //     res.send('estoy aqui en books');

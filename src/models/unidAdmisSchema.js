@@ -1,5 +1,5 @@
 const mongosse = require('mongoose');
-const commentSchema = mongosse.Schema(
+const unidAdmisSchema = mongosse.Schema(
     {
         nameComment: { type: String , require: true },
         location:{ type: String, type: String },
@@ -9,6 +9,6 @@ const commentSchema = mongosse.Schema(
     }
 )
 
-const Comment = mongosse.model('comment', commentSchema);
+const UnidAdmi = mongosse.model('unidAdmi', unidAdmisSchema);
 
-module.exports = Comment;
+module.exports = UnidAdmi;
