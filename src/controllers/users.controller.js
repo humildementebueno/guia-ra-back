@@ -2,12 +2,8 @@ const User = require('../models/userSchema');
 const { msjP,msjPError, respApi } = require('../helpers/helpers');
 const getUsers = async (req, res) => {
   try {
-    msjP('Lista de libros');
+    msjP('Lista de usuarios');
     const user = await User.find({});
-    // user=user.map(({password, ...usr})=>{
-    //   console.log("****"+usr);
-    //   return usr
-    // })
     respApi(res, 'succes', user);
   } catch {
     msjPError('Error en la consulta del get');
