@@ -2,6 +2,17 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
+
+const cors = require('cors');
+//dando permisos a url front
+const options = {
+  origin: '*',
+};
+
+app.use(cors(options));
+
+
+
 //middlewares
 app.use(bodyParser.json())
 
