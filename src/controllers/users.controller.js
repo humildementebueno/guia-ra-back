@@ -12,7 +12,7 @@ const getUsers = async (req, res) => {
 
 const createUsers = async (req, res) => {
   try {
-    msjP('Crear libros');
+    msjP('Crear usuarios');
     const user = await User.create(req.body);
     respApi(res, 'success', user);
   } catch {
@@ -21,7 +21,7 @@ const createUsers = async (req, res) => {
 }
 const updateUsers = async (req, res) => {
   try {
-    msjP('Actualizar libros');
+    msjP('Actualizar usuarios');
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
     respApi(res, 'success', user);
   } catch {
@@ -30,7 +30,7 @@ const updateUsers = async (req, res) => {
 }
 const deleteUsers = async (req, res) => {
   try {
-    msjP('Eliminar libros');
+    msjP('Eliminar usuario');
     const user = await User.findByIdAndDelete(req.params.id, req.body, {new: true});
     respApi(res, 'success', user);
   } catch {
@@ -38,9 +38,31 @@ const deleteUsers = async (req, res) => {
   }
 }
 
+const postVerifyUser = async(req,res)=>{
+  console.log("holaaa");
+  try{
+
+    msjP('Verificando usuario');
+    const user = await User.findOne(req.body);
+   
+    if (user) {
+      console.log("Usuario encontrado:", user);
+      respApi(res, 'success', user);
+    } else {
+      console.log("Usuario no encontrado");
+      respApi(res, 'error', null);
+    }
+
+  }catch {
+    msjPError('Error en la consulta de verificacion');
+    respApi(res, 'error', {});
+    }
+}
+
 module.exports = {
   getUsers,
   deleteUsers,
   updateUsers,
-  createUsers
+  createUsers,
+  postVerifyUser
 } 
