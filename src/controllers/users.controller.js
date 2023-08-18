@@ -1,5 +1,7 @@
 const User = require('../models/userSchema');
-const { msjP,msjPError, respApi } = require('../helpers/helpers');
+const { msjP, msjPError, respApi } = require('../helpers/helpers');
+const jwt = require('jsonwebtoken');
+
 const getUsers = async (req, res) => {
   try {
     msjP('Lista de usuarios');
@@ -22,7 +24,7 @@ const createUsers = async (req, res) => {
 const updateUsers = async (req, res) => {
   try {
     msjP('Actualizar usuarios');
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     respApi(res, 'success', user);
   } catch {
     msjPError('Error en la consulta');
@@ -31,33 +33,34 @@ const updateUsers = async (req, res) => {
 const deleteUsers = async (req, res) => {
   try {
     msjP('Eliminar usuario');
-    const user = await User.findByIdAndDelete(req.params.id, req.body, {new: true});
+    const user = await User.findByIdAndDelete(req.params.id, req.body, { new: true });
     respApi(res, 'success', user);
   } catch {
     msjPError('Error en la consulta');
   }
 }
 
-const postVerifyUser = async(req,res)=>{
-  console.log("holaaa");
-  try{
-
+const postVerifyUser = async (req, res) => {
+  try {
     msjP('Verificando usuario');
     const user = await User.findOne(req.body);
-   
+
     if (user) {
       console.log("Usuario encontrado:", user);
-      respApi(res, 'success', user);
+      // Genera el token JWT
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      // Envía la respuesta con el token
+      respApi(res, 'success', { token }); // Aquí utilizamos respApi
     } else {
       console.log("Usuario no encontrado");
-      respApi(res, 'error', null);
+      respApi(res, 'error', null); // Aquí utilizamos respApi
     }
-
-  }catch {
+  } catch {
     msjPError('Error en la consulta de verificacion');
-    respApi(res, 'error', {});
-    }
+    respApi(res, 'error', {}); // Aquí utilizamos respApi
+  }
 }
+
 
 module.exports = {
   getUsers,
