@@ -9,7 +9,7 @@ routers.post('/login', postVerifyUser);
 
 // Aplica el middleware a las rutas protegidas
 routers.get('/', authMiddleware, getUsers);
-routers.post('/', authMiddleware, createUsers);
+routers.post('/', createUsers);
 routers.put('/:id', authMiddleware, updateUsers);
 routers.delete('/:id', authMiddleware, deleteUsers);
 
